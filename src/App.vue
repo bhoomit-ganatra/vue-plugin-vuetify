@@ -1,19 +1,37 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div v-html="gretings"></div>
+    <form @submit.prevent="updateToast(msg)">
+      <input type="text" name="msg" id="msg" v-model="msg" />
+      <button> Submit </button>
+    </form>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  name: "App",
+  inject: ["toast", "updateToast"],
+  data: () => ({
+    gretings: "gretings",
+    msg: ''
+  }),
+  watch: {
+    toast: {
+      deep: true,
+      immediate: true,
+      handler(newVal) {
+        console.log('new data for toast is ', newVal)
+      }
+    }
+  },
+
+  beforeMount() {
+    this.gretings = this.$bold(this.gretings);
+    console.log("toast data is ", this.toast);
+    console.log("update toast data is ", this.updateToast);
+  },
+};
 </script>
 
 <style>
