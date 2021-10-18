@@ -22,11 +22,6 @@
 export default {
   name: "App",
   inject: ['toast','updateToast'],
-
-  data: () => ({
-    snackbar: false,
-    text: 'ok'
-  }),
   methods: {
     toggleSnackbar(isOpen) {
       isOpen ? this.updateToast('this is a toast message') : this.updateToast()
